@@ -3,22 +3,24 @@ const app = express();
 const PORT = 8080;
 
 
-//custom middleware
+//import custom middleware
 const cors = require("cors");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 
+// use middleware in the application
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
-
-app.get("/", (req, res) => {
-    console.log("Her");
-    res.status(200).json({message: "Hello"});
-});
+//to connect to the Routes
+const todoRouter = require("./routes/todo.routes.js");
+app.use("/todos", todoRouter);
 
 
+
+
+// Start the application at PORT 8080
 app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
 });
